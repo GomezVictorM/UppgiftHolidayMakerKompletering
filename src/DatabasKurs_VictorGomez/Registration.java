@@ -32,8 +32,8 @@ public class Registration {
             statement.setString(3, email);
             statement.setString(4, personal_number);
             statement.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("Something got wrong " + e.getMessage());
+        } catch (SQLException ex) {
+            System.out.println("Something went wrong " + ex.getMessage());
         }
         return personal_number;
     }
@@ -46,6 +46,18 @@ public class Registration {
         } catch (Exception ex) {
             ex.printStackTrace();
             return null;
+        }
+    }
+
+    public void printResult(ResultSet resultSet) {
+        try {
+            while(resultSet.next()) {
+                String customerInfo = "Customer id: " + resultSet.getInt("user_id") + "\nName: " + resultSet.getString("first_name") + resultSet.getString("last_name")
+                        + "Email: " + resultSet.getString("email") + "\nSwedish Personal Number: " + resultSet.getString("personal_number");
+                System.out.println(customerInfo);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 }
