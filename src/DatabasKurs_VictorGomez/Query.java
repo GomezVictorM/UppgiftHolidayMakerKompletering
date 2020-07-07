@@ -46,14 +46,14 @@ public class Query {
             this.statement = this.conn.prepareStatement("INSERT INTO bookings (booking_id, user_id, total_guests, check_in, check_out, room_id) " +
                     "VALUES (?, ?, ?, ?, ?, ?);");
             this.statement.setString(1, bookingId);
-            this.statement.setString(1, userId);
-            this.statement.setString(2, totalGuests);
-            this.statement.setString(3, checkIn);
-            this.statement.setString(4, checkOut);
-            this.statement.setString(5, roomID);
+            this.statement.setString(2, userId);
+            this.statement.setString(3, totalGuests);
+            this.statement.setString(4, checkIn);
+            this.statement.setString(5, checkOut);
+            this.statement.setString(6, roomID);
             this.statement.executeUpdate();
             System.out.println("Booking was successfully added to the database.");
-            return getIDOfBookingFrom(bookingId, userId, totalGuests, checkIn, checkOut, roomID);
+            return getIDOfBookingFrom(userId, checkIn, checkOut, roomID);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
