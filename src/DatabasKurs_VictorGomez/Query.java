@@ -7,21 +7,21 @@ public class Query {
     private PreparedStatement statement;
     private ResultSet resultSet;
 
-    public String addNewCustomer(String first_name, String last_name, String email, String personal_number){
+    public String addNewCustomer(String firstName, String lastName, String email, String personalNumber){
         connectToDatabase();
         try {
             this.statement = this.conn.prepareStatement("INSERT INTO users (first_name, last_name, email, personal_number) VALUES (?, ?, ?, ?);");
-            this.statement.setString(1, first_name);
-            this.statement.setString(2, last_name);
+            this.statement.setString(1, firstName);
+            this.statement.setString(2, lastName);
             this.statement.setString(2, email);
-            this.statement.setString(3, personal_number);
+            this.statement.setString(3, personalNumber);
             this.statement.executeUpdate();
-            System.out.printf("Customer: %s %s with nhs number %s was added to the database.\n", first_name, last_name, email, personal_number);
+            System.out.printf("Customer: %s %s with nhs number %s was added to the database.\n", firstName, lastName, email, personalNumber);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         disconnectFromDatabase();
-        return getPersonalNumber(personal_number);
+        return getPersonalNumber(personalNumber);
     }
 
     private String getPersonalNumber(String personalNumber){
@@ -40,19 +40,20 @@ public class Query {
         return customerID;
     }
 
-    public String addBookingToDatabase(String userID, String totalGuests, String checkIn, String checkOut, String roomID){
+    public String addBookingToDatabase(String bookingId, String userId, String totalGuests, String checkIn, String checkOut, String roomID){
         connectToDatabase();
         try {
-            this.statement = this.conn.prepareStatement("INSERT INTO bookings (user_id, total_guests, check_in, check_out, room_id) " +
-                    "VALUES (?, ?, ?, ?, ?);");
-            this.statement.setString(1, userID);
+            this.statement = this.conn.prepareStatement("INSERT INTO bookings (booking_id, user_id, total_guests, check_in, check_out, room_id) " +
+                    "VALUES (?, ?, ?, ?, ?, ?);");
+            this.statement.setString(1, bookingId);
+            this.statement.setString(1, userId);
             this.statement.setString(2, totalGuests);
             this.statement.setString(3, checkIn);
             this.statement.setString(4, checkOut);
             this.statement.setString(5, roomID);
             this.statement.executeUpdate();
             System.out.println("Booking was successfully added to the database.");
-            return getIDOfBookingFrom(userID, totalGuests, checkIn, checkOut, roomID);
+            return getIDOfBookingFrom(bookingId, userId, totalGuests, checkIn, checkOut, roomID);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -239,8 +240,8 @@ public class Query {
                         totalMaxGuests
                 );
             }
-        } catch (Exception e){
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            System.out.println("Something went wrong " + ex.getMessage());
         }
         disconnectFromDatabase();
     }
