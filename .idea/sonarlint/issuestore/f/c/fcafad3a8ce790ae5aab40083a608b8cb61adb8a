@@ -1,0 +1,25 @@
+
+u
+java:S1450
+"SRemove the "conn" field and declare it as a local variable in the relevant methods.(´¤´‚ıÿÿÿÿ8Ù€Üì­.
+
+java:S1319"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(¬Çî©8–Ê¤ï­.
+N
+java:S1481",Remove this unused "scanner" local variable.(ù ƒ‘üÿÿÿÿ8ÚÊ«ï­.
+L
+java:S1172"/Remove this unused method parameter "criteria".(¬Çî©8³¦©ï­.
+]
+java:S1854";Remove this useless assignment to local variable "scanner".(ù ƒ‘üÿÿÿÿ8ÚÊ«ï­.
+U	java:S106"9Replace this use of System.out or System.err by a logger.(ŒşØÓ8ÚÊ«ï­.
+J
+java:S1068"-Remove this unused "resultSet" private field.(Şşö€8ãÅ¾ì­.
+J
+java:S1068"-Remove this unused "statement" private field.(±„´ğ8ãÅ¾ì­.
+J
+java:S1068
+"(Remove this unused "conn" private field.(´¤´‚ıÿÿÿÿ8ãÅ¾ì­.
+c
+java:S1854"GRemove this useless assignment to local variable "searchingParameters".(®›ã:8³¦©ï­.
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ßİÄúÿÿÿÿ
+T
+java:S1481"8Remove this unused "searchingParameters" local variable.(®›ã:8³¦©ï­.

@@ -1,0 +1,54 @@
+
+@
+java:S1148'"#Use a logger to log this exception.(Ç’Çê8ë‚ôï­.
+^	java:S125Í"<This block of commented-out lines of code should be removed.(¼è÷ïøÿÿÿÿ8öÔ§„®.
+U	java:S1068"9Replace this use of System.out or System.err by a logger.(‚äê»8ÉÀ©ð­.
+A
+java:S1148•"#Use a logger to log this exception.(Ç’Çê8ÉÀ©ð­.
+F
+java:S1148þ"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8ÉÀ©ð­.
+V	java:S106 "9Replace this use of System.out or System.err by a logger.(ðŽÖ8ÉÀ©ð­.
+@
+java:S1148"#Use a logger to log this exception.(Ç’Çê8™îÅ‚®.
+r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÈÙ ™ûÿÿÿÿ8ë‚ôï­.
+Z	java:S106"9Replace this use of System.out or System.err by a logger.(†Ì¢¸üÿÿÿÿ8ë‚ôï­.
+V	java:S106³"9Replace this use of System.out or System.err by a logger.(ðŽÖ8ÉÀ©ð­.
+^	java:S125Â"<This block of commented-out lines of code should be removed.(Þ–îüÿÿÿÿ8öÔ§„®.
+r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÈÙ ™ûÿÿÿÿ8ë‚ôï­.
+o
+java:S3457ê"Q%n should be used in place of \n to produce the platform-specific line separator.(ðŽÖ8ÉÀ©ð­.
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ßÝÄúÿÿÿÿ
+F
+java:S1148¼"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8ÉÀ©ð­.
+o
+java:S3457Š"Q%n should be used in place of \n to produce the platform-specific line separator.(ðŽÖ8ÉÀ©ð­.
+F
+java:S1148†"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8ÉÀ©ð­.
+F
+java:S1148õ"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8ÉÀ©ð­.
+F
+java:S1148¨"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8ÉÀ©ð­.
+@
+java:S1148]"#Use a logger to log this exception.(Ç’Çê8ÉÀ©ð­.
+Y	java:S125Æ"<This block of commented-out lines of code should be removed.(Üî‹É8öÔ§„®.
+@
+java:S1148"#Use a logger to log this exception.(Ç’Çê8ë‚ôï­.
+o
+java:S3457³"Q%n should be used in place of \n to produce the platform-specific line separator.(ðŽÖ8ÉÀ©ð­.
+r	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÈÙ ™ûÿÿÿÿ8èéõï­.
+@
+java:S1148;"#Use a logger to log this exception.(Ç’Çê8ÉÀ©ð­.
+@
+java:S1148O"#Use a logger to log this exception.(Ç’Çê8ÉÀ©ð­.
+s
+java:S3457"Q%n should be used in place of \n to produce the platform-specific line separator.(†Ì¢¸üÿÿÿÿ8•‡ð­.
+o
+java:S3457 "Q%n should be used in place of \n to produce the platform-specific line separator.(ðŽÖ8ÉÀ©ð­.
+3
+java:S2275³"Not enough arguments.(ðŽÖ8Ž«‚ƒ®.
+;
+java:S3457"4th argument is not used.(†Ì¢¸üÿÿÿÿ8•‡ð­.
+V	java:S106ê"9Replace this use of System.out or System.err by a logger.(ðŽÖ8ÉÀ©ð­.
+V	java:S106Š"9Replace this use of System.out or System.err by a logger.(ðŽÖ8ÉÀ©ð­.
+@
+java:S1148r"#Use a logger to log this exception.(Ç’Çê8ÉÀ©ð­.

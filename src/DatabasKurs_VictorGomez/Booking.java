@@ -21,8 +21,7 @@ public class Booking {
         System.out.println("Please enter the number of guests");
         try {
             int numberOfGuests = Integer.parseInt(scanner.nextLine());
-            if ()
 
-        }
+        } catch ()
     }
 }

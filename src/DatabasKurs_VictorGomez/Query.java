@@ -1,8 +1,6 @@
 package DatabasKurs_VictorGomez;
 
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 
 public class Query {
     private Connection conn = null;
@@ -82,7 +80,7 @@ public class Query {
         return null;
     }
 
-    public void linkBookingWithAddon(String bookingID, String addonID){
+    public void addonsToBooking(String bookingID, String addonID){
         connectToDatabase();
         try {
             this.statement = this.conn.prepareStatement("INSERT INTO bookings_and_addons (booking_id, addon_id) VALUES (?, ?);");
@@ -95,28 +93,17 @@ public class Query {
         disconnectFromDatabase();
     }
 
-    public void deleteCustomerWithID(String customerID){
-        connectToDatabase();
-        try {
-            this.statement = this.conn.prepareStatement("DELETE FROM customers WHERE id=?;");
-            this.statement.setString(1, customerID);
-            this.statement.executeUpdate();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        disconnectFromDatabase();
-    }
 
     public String deleteBookingWithID(String bookingID){
         connectToDatabase();
         try {
-            this.statement = this.conn.prepareStatement("SELECT customer_id FROM bookings WHERE id=?;");
+            this.statement = this.conn.prepareStatement("SELECT user_id FROM bookings WHERE booking_id=?;");
             this.statement.setString(1, bookingID);
             this.resultSet = statement.executeQuery();
             this.resultSet.next();
-            String customerID = resultSet.getString("customer_id");
+            String customerID = resultSet.getString("user_id");
 
-            this.statement = this.conn.prepareStatement("DELETE FROM bookings WHERE id=?;");
+            this.statement = this.conn.prepareStatement("DELETE FROM bookings WHERE booking_id=?;");
             this.statement.setString(1, bookingID);
             this.statement.executeUpdate();
             disconnectFromDatabase();
@@ -128,20 +115,32 @@ public class Query {
         return null;
     }
 
+    public void deleteCustomerWithID(String customerID){
+        connectToDatabase();
+        try {
+            this.statement = this.conn.prepareStatement("DELETE FROM users WHERE user_id=?;");
+            this.statement.setString(1, customerID);
+            this.statement.executeUpdate();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        disconnectFromDatabase();
+    }
+
     public void displayAllBookings(){
         connectToDatabase();
         try {
-            this.statement = this.conn.prepareStatement("SELECT bookings.id, begin_date, end_date, customers.* FROM bookings INNER JOIN customers ON customer_id=customers.id;");
+            this.statement = this.conn.prepareStatement("SELECT bookings.bookings_id, check_in, check_out, users.* FROM bookings JOIN users ON user_id=users.user_id;");
             this.resultSet = statement.executeQuery();
             while (resultSet.next()){
                 System.out.printf(
-                        "%d. %s-%s - FullName: %s %s - NHS number: %s\n",
-                        resultSet.getInt("id"),
-                        resultSet.getString("begin_date"),
-                        resultSet.getString("end_date"),
-                        resultSet.getString("name"),
+                        "%d. %s-%s - FullName: %s %s - Swedish Personal Number number: %s\n",
+                        resultSet.getInt("booking_id"),
+                        resultSet.getString("check_in"),
+                        resultSet.getString("check_out"),
+                        resultSet.getString("first_name"),
                         resultSet.getString("last_name"),
-                        resultSet.getString("nhs_number")
+                        resultSet.getString("personal_number")
                 );
             }
         } catch (Exception ex) {
@@ -150,17 +149,17 @@ public class Query {
         disconnectFromDatabase();
     }
 
-    public void displayAddons(){
+    public void showAddons(){
         connectToDatabase();
         try {
-            this.statement = this.conn.prepareStatement("SELECT * FROM Addons");
+            this.statement = this.conn.prepareStatement("SELECT * FROM addons");
             this.resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 System.out.printf(
                         "%d. %s - %s kr\n",
-                        resultSet.getInt("id"),
-                        resultSet.getString("name"),
-                        resultSet.getString("price")
+                        resultSet.getInt("addon_id"),
+                        resultSet.getString("description"),
+                        resultSet.getString("price_per_day")
                 );
             }
         } catch (Exception e) {
@@ -169,18 +168,16 @@ public class Query {
         disconnectFromDatabase();
     }
 
-    public void selectPlace(){
+    public void selectHotel(){
         connectToDatabase();
         try {
-            this.statement = this.conn.prepareStatement("SELECT places.id, places.name, addresses.* FROM places INNER JOIN addresses ON places.address_id=addresses.id;");
+            this.statement = this.conn.prepareStatement("SELECT hotels.hotel_id, hotels.hotel_name, hotels.city, hotels.country;");
             this.resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 System.out.printf(
                         "%d. %s (%s %s, %s, %s).\n",
-                        resultSet.getInt("id"),
-                        resultSet.getString("name"),
-                        resultSet.getString("street"),
-                        resultSet.getString("number"),
+                        resultSet.getInt("hotel_id"),
+                        resultSet.getString("hotel_name"),
                         resultSet.getString("city"),
                         resultSet.getString("country")
                 );
@@ -191,66 +188,29 @@ public class Query {
         disconnectFromDatabase();
     }
 
-    public void includedAtLocation(String placeID){
-        connectToDatabase();
-        try {
-            this.statement = this.conn.prepareStatement("SELECT access_to.name FROM places_and_access INNER JOIN access_to ON access_id = access_to.id WHERE place_id = ?;");
-            this.statement.setString(1, placeID);
-            this.resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                System.out.printf(
-                        "%s\n",
-                        resultSet.getString("name")
-                );
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        disconnectFromDatabase();
-    }
 
-    public void displayPlacesWithSpecificAccessTo(String accessID){
-        connectToDatabase();
-        try {
-            this.statement = this.conn.prepareStatement("SELECT places.name FROM places_and_access INNER JOIN places ON place_id = places.id WHERE access_id = ?;");
-            this.statement.setString(1, accessID);
-            this.resultSet = statement.executeQuery();
-            this.statement = this.conn.prepareStatement("SELECT name FROM access_to WHERE id=?");
-            this.statement.setString(1, accessID);
-            ResultSet resultSet2 = statement.executeQuery();
-            resultSet2.next();
-            System.out.println("---- These places offer " + resultSet2.getString("name") + " ----");
-            while (resultSet.next()) {
-                System.out.printf(
-                        "%s\n",
-                        resultSet.getString("name")
-                );
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        disconnectFromDatabase();
-    }
+//    public void includedAtLocation(String hotelID){
+//        connectToDatabase();
+//        try {
+//            "%d. %s (%s %s, %s).\n",
+//            this.statement = this.conn.prepareStatement("SELECT hotel_name, children_activities, night_entertainment, pool;");
+//            this.statement.setString(1, hotelID);
+//            this.resultSet = statement.executeQuery();
+//            while (resultSet.next()) {
+//                System.out.printf(
+//                        "%s\n",
+//                        resultSet.getString("hotel_name")
+//                );
+//            }
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        disconnectFromDatabase();
+//    }
 
-    public void displayAllAccessOnPlaces(){
-        connectToDatabase();
-        try {
-            this.statement = this.conn.prepareStatement("SELECT id, name FROM access_to;");
-            this.resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                System.out.printf(
-                        "%d. %s\n",
-                        resultSet.getInt("id"),
-                        resultSet.getString("name")
-                );
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        disconnectFromDatabase();
-    }
 
-    public void checkIfARoomIsAvailableDuringTheDates(String arrivalDate, String departureDate, String placeID, String totalGuests){
+
+    public void findAvailableRooms(String arrivalDate, String departureDate, String placeID, String totalGuests){
         connectToDatabase();
         try {
             int intPlaceID = Integer.parseInt(placeID);
@@ -287,17 +247,17 @@ public class Query {
 
     private void connectToDatabase() {
         try {
-            this.conn = DriverManager.getConnection("jdbc:mysql://localhost/holidaymaker_database?user=root&password=mysql&serverTimezone=UTC");
-        } catch (Exception e) {
-            e.printStackTrace();
+            this.conn = DriverManager.getConnection("jdbc:sqlite:/Users/victorgomez/Desktop/holidaymaker_uppgift.db");
+        } catch (SQLException ex) {
+            System.out.println("Something went wrong " + ex.getMessage());
         }
     }
 
     private void disconnectFromDatabase(){
         try{
             this.conn.close();
-        } catch (Exception e){
-            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 

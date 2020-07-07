@@ -1,0 +1,11 @@
+
+O
+java:S1068"-Remove this unused "resultSet" private field.(¿ˆ°úÿÿÿÿ8ƒ’ì­.
+Y
+java:S1128"7Remove this unused import 'javax.xml.transform.Result'.(âÓ¸ûÿÿÿÿ8ƒ’ì­.
+J
+java:S1068	"(Remove this unused "conn" private field.(´¤´‚ıÿÿÿÿ8Òı”ì­.
+O
+java:S1068
+"-Remove this unused "statement" private field.(ÊÄáÿşÿÿÿÿ8‡²–ì­.
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ßİÄúÿÿÿÿ

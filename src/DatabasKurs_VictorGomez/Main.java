@@ -3,9 +3,7 @@ package DatabasKurs_VictorGomez;
 public class Main {
 
     public static void main(String[] args) {
-
-        Program program = new Program();
-       // Here some functionalities
+        new App();
 
     }
 }
