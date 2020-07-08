@@ -135,7 +135,7 @@ public class Query {
             this.resultSet = statement.executeQuery();
             while (resultSet.next()){
                 System.out.printf(
-                        "%d. %s-%s - FullName: %s %s - Swedish Personal Number number: %s\n",
+                        "%d. %s-%s - FullName: %s %s - Swedish Personal Number: %s\n",
                         resultSet.getInt("booking_id"),
                         resultSet.getString("check_in"),
                         resultSet.getString("check_out"),
@@ -188,28 +188,6 @@ public class Query {
         }
         disconnectFromDatabase();
     }
-
-
-//    public void includedAtLocation(String hotelID){
-//        connectToDatabase();
-//        try {
-//            "%d. %s (%s %s, %s).\n",
-//            this.statement = this.conn.prepareStatement("SELECT hotel_name, children_activities, night_entertainment, pool;");
-//            this.statement.setString(1, hotelID);
-//            this.resultSet = statement.executeQuery();
-//            while (resultSet.next()) {
-//                System.out.printf(
-//                        "%s\n",
-//                        resultSet.getString("hotel_name")
-//                );
-//            }
-//        } catch (Exception e){
-//            e.printStackTrace();
-//        }
-//        disconnectFromDatabase();
-//    }
-
-
 
     public void findAvailableRooms(String arrivalDate, String departureDate, String placeID, String totalGuests){
         connectToDatabase();
