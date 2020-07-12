@@ -7,6 +7,14 @@ public class Query {
     private PreparedStatement statement;
     private ResultSet resultSet;
 
+    private void connectToDatabase() {
+        try {
+            this.conn = DriverManager.getConnection("jdbc:sqlite:/Users/victorgomez/Desktop/holidaymaker_uppgift.db");
+        } catch (SQLException ex) {
+            System.out.println("Something went wrong " + ex.getMessage());
+        }
+    }
+
     public String addNewCustomer(String firstName, String lastName, String email, String personalNumber){
         connectToDatabase();
         try {
@@ -61,7 +69,7 @@ public class Query {
         return null;
     }
 
-    public String getIDOfBookingFrom(String userID, String checkIn, String checkOut, String roomID){
+    public String getIDOfBooking (String userID, String checkIn, String checkOut, String roomID){
         try{
             connectToDatabase();
             this.statement = this.conn.prepareStatement("SELECT * FROM bookings WHERE check_in=? AND check_out=? AND user_id=? AND room_id=?");
@@ -195,8 +203,8 @@ public class Query {
             int intPlaceID = Integer.parseInt(placeID);
             int intTotalGuests = Integer.parseInt(totalGuests);
             this.statement = this.conn.prepareStatement("SELECT rooms.id, rooms.room_number, places.name, sizes.size_name, sizes.max_guests " +
-                    "FROM bookings INNER JOIN rooms ON room_id = rooms.id INNER JOIN places ON bookings.place_id = places.id " +
-                    "INNER JOIN sizes ON rooms.size_id = sizes.id " +
+                    "FROM bookings JOIN rooms ON room_id = rooms.id JOIN places ON bookings.place_id = places.id " +
+                    "JOIN sizes ON rooms.size_id = sizes.id " +
                     "WHERE (? < bookings.begin_date OR ? > bookings.end_date AND ? < bookings.begin_date OR ? > bookings.end_date) " +
                     "AND (bookings.place_id = ?) AND (? <= (sizes.max_guests + 1)) GROUP BY bookings.room_id;");
             this.statement.setString(1, arrivalDate);
@@ -222,14 +230,6 @@ public class Query {
             System.out.println("Something went wrong " + ex.getMessage());
         }
         disconnectFromDatabase();
-    }
-
-    private void connectToDatabase() {
-        try {
-            this.conn = DriverManager.getConnection("jdbc:sqlite:/Users/victorgomez/Desktop/holidaymaker_uppgift.db");
-        } catch (SQLException ex) {
-            System.out.println("Something went wrong " + ex.getMessage());
-        }
     }
 
     private void disconnectFromDatabase(){
