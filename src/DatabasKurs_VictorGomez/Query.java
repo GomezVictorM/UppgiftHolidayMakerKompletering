@@ -61,7 +61,7 @@ public class Query {
             this.statement.setString(6, roomID);
             this.statement.executeUpdate();
             System.out.println("Booking added to the database");
-            return getIDOfBookingFrom(userId, checkIn, checkOut, roomID);
+            return getIDOfBooking(userId, checkIn, checkOut, roomID);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
